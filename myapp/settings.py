@@ -67,14 +67,22 @@ WSGI_APPLICATION = 'myapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+DB_DEFAULT_CONFIG = {
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'meeting_db',
+    'HOST': 'localhost',
+    'PORT': 3306,
+    'USER': 'root',
+    'PASSWORD': '123456',
+}
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'meeting_db',
-        'HOST': 'localhost',
-        'PORT': 3306,
-        'USER': 'root',
-        'PASSWORD': '123456',
+    'default': DB_DEFAULT_CONFIG,
+    'serializable': {
+        **DB_DEFAULT_CONFIG,
+        "OPTIONS": {
+            'isolation_level': 'serializable',
+        }
     }
 }
 
